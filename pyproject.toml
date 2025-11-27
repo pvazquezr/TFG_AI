@@ -5,7 +5,19 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "catboost>=1.2.8",
     "gitpython>=3.1.45",
+    "ipywidgets>=8.1.8",
+    "kneed>=0.8.5",
+    "lightgbm>=4.6.0",
+    "matplotlib>=3.10.7",
     "notebook>=7.4.7",
+    "numpy>=2.3.5",
+    "optuna>=4.6.0",
     "pandas>=2.3.3",
+    "scikit-learn>=1.7.2",
+    "seaborn>=0.13.2",
+    "statsmodels>=0.14.5",
+    "widgetsnbextension>=4.0.15",
+    "xgboost>=3.1.2",
 ]
