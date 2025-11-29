@@ -2,3 +2,4 @@
 TFG_Examples
 tmp
 catboost_info
+*.pyc
