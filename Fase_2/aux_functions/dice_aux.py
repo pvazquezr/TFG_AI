@@ -113,7 +113,7 @@ def calculate_dice(X, y, features_to_vary, poi_patient_data, gene_columns, model
 
 
 # Función auxiliar para calcular DiCE y mostrar histograma
-def calculate_dice_bootsrap(X, y, features_to_vary, poi_patient_data, gene_columns, model, rng_seed):
+def calculate_dice_bootsrap(X, y, features_to_vary, poi_patient_data, gene_columns, model, rng_seed, save_path=''):
     # 1. Preparar datos y modelo
     X["Response"] = y  # DiCE necesita la respuesta
     data = dice_ml.Data(dataframe=X, continuous_features=gene_columns.to_list(), outcome_name="Response")
@@ -167,8 +167,13 @@ def calculate_dice_bootsrap(X, y, features_to_vary, poi_patient_data, gene_colum
     # 8. Gráfico de barras de frecuencia
     plt.figure(figsize=(8,6))
     plt.bar(freq_df["Gen"], freq_df["Frequency"], color="steelblue")
-    plt.xlabel("Gen")
-    plt.ylabel("Frecuencia de aparición como palanca")
-    plt.title(f"Genes palanca en contrafactuales | Paciente: {patient_type} ({sample_id})")
+    plt.xlabel("Gen", fontsize=16)
+    plt.ylabel("Frecuencia de aparición como palanca", fontsize=16)
+    plt.title(f"Genes palanca en contrafactuales\nPaciente: {patient_type} ({sample_id})", fontsize=18)
+        
+    # Guardar primero
+    plt.savefig(save_path, format="pdf", bbox_inches="tight")
+
+    # Mostrar después
     plt.show()
 
