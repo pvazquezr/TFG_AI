@@ -80,7 +80,6 @@ def aggregate_importances_across_folds(fold_importances, top_k=50):
     }
 
 
-
 def aggregate_importances_across_models(model_importance_dicts):
     """
     Agrega importancias de características procedentes de múltiples modelos.

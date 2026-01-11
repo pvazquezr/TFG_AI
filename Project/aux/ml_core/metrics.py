@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from dcurves import dca, plot_graphs
 from sklearn.metrics import f1_score, precision_recall_curve
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 
 def best_f1_threshold(y_true, y_score):
@@ -91,3 +93,39 @@ def decision_curve_analysis(base_model, va_model, platt_model, isotonic_model, X
         **kwargs
     )
 
+def get_importances_logreg(model, feature_names):
+    coefs = np.abs(model.coef_[0])
+    df = pd.DataFrame({
+        "feature": feature_names,
+        "importance": coefs
+    }).sort_values("importance", ascending=False)
+    return df
+
+def get_importances_rf(model, feature_names):
+    df = pd.DataFrame({
+        "feature": feature_names,
+        "importance": model.feature_importances_
+    }).sort_values("importance", ascending=False)
+    return df
+
+def get_importances_xgb(model):
+    booster = model.get_booster()
+    scores = booster.get_score(importance_type="gain")
+    df = pd.DataFrame(scores.items(), columns=["feature", "importance"])
+    df = df.sort_values("importance", ascending=False)
+    return df
+
+def get_importances_catboost(model, feature_names):
+    importances = model.get_feature_importance()
+    df = pd.DataFrame({
+        "feature": feature_names,
+        "importance": importances
+    }).sort_values("importance", ascending=False)
+    return df
+
+def plot_importances(df, title):
+    plt.figure(figsize=(6, 6))
+    sns.barplot(data=df, x="importance", y="feature")
+    plt.title(title)
+    plt.tight_layout()
+    plt.show()
